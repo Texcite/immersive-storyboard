@@ -1,4 +1,5 @@
 import DemoTab from './components/demoTab'
+import { BeakerIcon } from '@heroicons/react/24/solid'
 
 export default function Home() {
   return (
@@ -7,6 +8,7 @@ export default function Home() {
         Hello world!
       </h1>
       <DemoTab></DemoTab>
+      <BeakerIcon className="h-6 w-6 text-blue-500"/>
     </>
   )
 }
