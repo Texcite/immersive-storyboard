@@ -14,6 +14,7 @@ const user = {
 const navigation = [
     { name: 'Dashboard', href: '/dashboard', current: true },
     { name: 'Timeline', href: '/timeline', current: false },
+    { name: 'Scene Builder', href: '/scene-builder', current: false},
 ]
 const userNavigation = [
     { name: 'Your Profile', href: '#' },
