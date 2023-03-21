@@ -1,9 +1,10 @@
 import {NextPageWithLayout} from "@/pages/_app";
 import BaseLayout from "@/layouts/base";
 import BuilderLayout from "@/layouts/BuilderLayout";
-import {ReactElement} from "react";
+import {ReactElement, useEffect} from "react";
 
 const SceneBuilder: NextPageWithLayout = ({}) => {
+
     return (
         <>
             <h1>Preview Prompt</h1>
