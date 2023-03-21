@@ -14,6 +14,7 @@ const user = {
 const navigation = [
     { name: 'Dashboard', href: '/dashboard', current: true },
     { name: 'Timeline', href: '/timeline', current: false },
+    { name: 'Storyboard Export', href: '/storyboard-export'}
 ]
 const userNavigation = [
     { name: 'Your Profile', href: '#' },
