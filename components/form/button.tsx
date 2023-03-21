@@ -3,22 +3,29 @@ import { classNames } from "@/utils/classNames";
 
 export default function Button(props: any) {
 
-    function defineButtonFunction(){
-        switch(props.buttonType) {
+    function defineButtonFunction() {
+        console.log(props.Function)
+        if (props.Function !== undefined) {
 
-            case "returnToTimeline":
-                return backHandler();
-
-            case "sendApiCall":
-                return sendAPICall();
-
-            default: test();
+            return (props.Function)
 
         }
+        else {
 
+            switch (props.buttonType) {
+
+                case "returnToTimeline":
+                    return backHandler();
+
+                case "sendApiCall":
+                    return sendAPICall();
+
+                default: test();
+
+            }
+        }
 
     }
-
 
     return (
         <div>
@@ -35,10 +42,10 @@ function backHandler() {
     window.location.href = '/timeline';
 }
 
-function sendAPICall (){
+function sendAPICall() {
     console.log('API call test')
 }
 
-function test(){
+function test() {
     console.log('test')
 }

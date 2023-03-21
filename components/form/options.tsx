@@ -1,13 +1,14 @@
-import {LayoutProps} from "@/layouts/base";
-import {classNames} from "@/utils/classNames";
+import { LayoutProps } from "@/layouts/base";
+import { classNames } from "@/utils/classNames";
 
-export default function Options(optionID: string, propOptions: []){
+export default function Options(props: any) {
 
-    var posibleOptions = propOptions
+    var posibleOptions = props.propOptions
 
-return (
-    <div>
-        
-    </div>
-);
+    return (
+        <div>
+            <h2>{props.label}</h2>
+            <p>{props.availableOptions}</p>
+        </div>
+    );
 }
