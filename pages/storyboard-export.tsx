@@ -52,6 +52,22 @@ const StoryboardExport:NextPageWithLayout = ({}) => {
 
     const title = "Komt een man bij de dokter"
 
+    function exportPage () {
+        var html = document.documentElement.outerHTML;
+
+        // Zoek het element op basis van de id en haal de HTML van het element op
+        var element = document.getElementById("navbar");
+        var elementHtml = element!.outerHTML;
+        
+        // Vervang de HTML van het element in de HTML-code door een lege string
+        html = html.replace(elementHtml, "");
+        var blob = new Blob([html], {type: 'text/html'});
+        var link = document.createElement('a');
+        link.download = 'storyboard.html';
+        link.href = window.URL.createObjectURL(blob);
+        link.click();
+    }
+    
     return (
         <>
             <div className="bg-white-300">
@@ -63,7 +79,7 @@ const StoryboardExport:NextPageWithLayout = ({}) => {
                         <h1 className="text-2xl">Export preview</h1>
                         <p>This is the preview of your storyboard. When you have pressed the download button you can open the index.html file to see the storyboard.</p>
                     </div>
-                    <button className="rounded-full p-3 px-6 bg-customBlue text-white hover:bg-customBlue"
+                    <button className="rounded-full p-3 px-6 bg-customBlue text-white hover:bg-customBlue" onClick={exportPage}
                         
                     >
                         Download
