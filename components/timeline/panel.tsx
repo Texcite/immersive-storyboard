@@ -1,7 +1,8 @@
-import React, {FC, PropsWithChildren, useEffect} from 'react';
-import {useDraggable, useDroppable} from '@dnd-kit/core';
+import React, {FC, PropsWithChildren} from 'react';
+import {useDraggable} from '@dnd-kit/core';
 import Image from "next/image";
 import {classNames} from '@/utils/classNames';
+import {useSortable} from "@dnd-kit/sortable";
 
 
 export interface Panel {
@@ -9,15 +10,16 @@ export interface Panel {
     thumbnail: string
     video: string
     comments?: string
+    id: string
 }
 
 interface TimelinePanelProps extends PropsWithChildren {
-    panel: Panel
+    panel: Panel,
 }
 
-export const TimelinePanel: FC<TimelinePanelProps> = ({panel, children}) => {
-    const {attributes, listeners, setNodeRef, transform} = useDraggable({
-        id: "draggable" + panel.title,
+export const TimelinePanel: FC<TimelinePanelProps> = ({  panel, children}) => {
+    const {attributes, listeners, setNodeRef, transform} = useSortable({
+        id: panel.id
     });
     const style = transform ? {
         transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
@@ -27,12 +29,12 @@ export const TimelinePanel: FC<TimelinePanelProps> = ({panel, children}) => {
     return (
         <div ref={setNodeRef} style={style} {...listeners} {...attributes}
              className={classNames(
-                 "w-32 h-full rounded-xl overflow-hidden",
+                 "w-64  rounded-xl overflow-hidden",
                  activeDragging ?
                      "transition-all" : "")}>
-            <div className='panel-inner-wrapper overflow-hidden w-full h-full'>
+            <div className='panel-inner-wrapper overflow-hidden '>
                 <div
-                    className={classNames("h-2/3 overflow-hidden bg-main rounded-xl", activeDragging ? " bg-yellow-300 p-1" : "")}>
+                    className={classNames("h-2/3 overflow-hidden bg-main rounded-xl", activeDragging ? " border-yellow-300 border-2" : "")}>
                     <Image
                         className="rounded-lg"
                         src={panel.thumbnail}
@@ -48,48 +50,5 @@ export const TimelinePanel: FC<TimelinePanelProps> = ({panel, children}) => {
             </div>
             {children}
         </div>
-    );
-}
-
-function SortablePage({
-                          id,
-                          activeIndex,
-                          ...props
-                      }: PageProps & { activeIndex: number }) {
-    const {
-        attributes,
-        listeners,
-        index,
-        isDragging,
-        isSorting,
-        over,
-        setNodeRef,
-        transform,
-        transition,
-    } = useSortable({
-        id,
-        animateLayoutChanges: always,
-    });
-
-    return (
-        <Page
-            ref={setNodeRef}
-            id={id}
-            active={isDragging}
-            style={{
-                transition,
-                transform: isSorting ? undefined : CSS.Translate.toString(transform),
-            }}
-            insertPosition={
-                over?.id === id
-                    ? index > activeIndex
-                        ? Position.After
-                        : Position.Before
-                    : undefined
-            }
-            {...props}
-            {...attributes}
-            {...listeners}
-        />
     );
 }
