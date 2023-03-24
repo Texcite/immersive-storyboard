@@ -36,7 +36,7 @@ export default function BuilderLayout({children}: LayoutProps){
       
         const data = await response.json();
 
-        await timeout(480000);
+        await timeout(330000);
 
         const secondUrl = apiUrl + '/' + data.id;
 
