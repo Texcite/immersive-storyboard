@@ -14,7 +14,8 @@ const user = {
 const navigation = [
     { name: 'Dashboard', href: '/dashboard', current: true },
     { name: 'Timeline', href: '/timeline', current: false },
-    { name: 'Storyboard Export', href: '/storyboard-export'}
+    { name: 'Storyboard Export', href: '/storyboard-export'},
+    { name: 'Scene Builder', href: '/scene-builder', current: false},
 ]
 const userNavigation = [
     { name: 'Your Profile', href: '#' },
@@ -176,14 +177,6 @@ const DashboardLayout = ({children}: LayoutProps) =>
 {
     return (
     <>
-        {/*
-        This example requires updating your template:
-
-        ```
-        <html class="h-full bg-gray-100">
-        <body class="h-full">
-        ```
-      */}
         <div className="min-h-full">
             <div className="bg-gray-800 pb-32">
                 <Navigation/>
