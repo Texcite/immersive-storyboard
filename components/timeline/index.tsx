@@ -1,5 +1,5 @@
 
-import {FC, useState} from "react";
+import {Dispatch, FC, useState} from "react";
 import {
     closestCenter,
     DndContext,
@@ -19,7 +19,7 @@ import {
 import VideoEditingTimeline from 'video-editing-timeline-react';
 
 interface StoryBoardTimelineProps {
-    panels: Panel[]
+    panels: Array<Panel>
 }
 
 export const StoryBoardTimeline: FC<StoryBoardTimelineProps> = ({ panels }) => {
@@ -40,7 +40,7 @@ export const StoryBoardTimeline: FC<StoryBoardTimelineProps> = ({ panels }) => {
             coordinateGetter: sortableKeyboardCoordinates,
         })
     );
-    
+
     return (
         <DndContext
             collisionDetection={closestCenter}
@@ -68,14 +68,17 @@ export const StoryBoardTimeline: FC<StoryBoardTimelineProps> = ({ panels }) => {
                         </div>
                     </div>
 
-                    <div className="w-full pl-16  flex flex-col items-center justify-center">
-                        <div className="inner-wrapper p-2 flex items-center justify-center w-full">
-                           <VideoEditingTimeline config={timeLineConfig} />
+                    <div className="w-full pl-16  flex flex-col items-start justify-start">
+                        <div className="inner-wrapper p-2 flex w-full">
+                            {
+                                // @ts-ignore
+                                <VideoEditingTimeline config={timeLineConfig}/>
+                            }
                         </div>
                         <div className="panels-wrapper w-full flex flex-row space-x-2 bg-black text-white p-4">
                             <div className=" overflow-hidden overflow-x-scroll space-x-3 flex">
                                 {
-                                    items.map((item,index) => <TimelinePanel panel={panels.find(p => p.id === item) ?? panels[index]}/>)
+                                    items.map((item,index) => <TimelinePanel key={index} panel={panels.find(p => p.id === item) ?? panels[index]}/>)
                                 }
                             </div>
                         </div>

@@ -1,12 +1,14 @@
 import {ReactNode} from "react";
+import {classNames} from "@/utils/classNames";
 
 export type LayoutProps = {
+    classes?: string,
     children: ReactNode,
 };
 
-const BaseLayout = ({children}: LayoutProps) => {
+const BaseLayout = ({children, classes}: LayoutProps) => {
     return (
-        <main className="">
+        <main className={classNames("", classes ?? "")}>
             {children}
         </main>
     )

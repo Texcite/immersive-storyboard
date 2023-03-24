@@ -21,8 +21,8 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "typescript": "4.9.5",
-    "video-editing-timeline-react": "^1.0.0"
-    "react-player": "^2.12.0",
+    "video-editing-timeline-react": "^1.0.0",
+    "react-player": "^2.12.0"
   },
   "devDependencies": {
     "@dnd-kit/sortable": "^7.0.2",

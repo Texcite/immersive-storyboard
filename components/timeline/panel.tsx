@@ -6,11 +6,11 @@ import {useSortable} from "@dnd-kit/sortable";
 
 
 export interface Panel {
+    id: string
     title: string
     thumbnail: string
     video: string
     comments?: string
-    id: string
 }
 
 interface TimelinePanelProps extends PropsWithChildren {
