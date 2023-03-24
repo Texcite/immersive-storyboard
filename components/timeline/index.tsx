@@ -27,7 +27,7 @@ export const StoryBoardTimeline: FC<StoryBoardTimelineProps> = ({ panels }) => {
 
  const timeLineConfig = {
         canvasWidth: (200 * panels.length) + 100,
-        canvasHeight: 56,
+        canvasHeight: 24,
         minimumScale: 10,
         minimumScaleTime: 18,
     }
@@ -68,7 +68,7 @@ export const StoryBoardTimeline: FC<StoryBoardTimelineProps> = ({ panels }) => {
                         </div>
                     </div>
 
-                    <div className="w-full pl-16  bg-red-800 flex flex-col items-center justify-center">
+                    <div className="w-full pl-16  flex flex-col items-center justify-center">
                         <div className="inner-wrapper p-2 flex items-center justify-center w-full">
                            <VideoEditingTimeline config={timeLineConfig} />
                         </div>
