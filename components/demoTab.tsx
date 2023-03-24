@@ -106,7 +106,7 @@ export default function MyTabs() {
                     </ul>
 
                     <a
-                      href="#"
+                      href="@/components/demoTab#"
                       className={classNames(
                         'absolute inset-0 rounded-md',
                         'ring-blue-400 focus:z-10 focus:outline-none focus:ring-2'

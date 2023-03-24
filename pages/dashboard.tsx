@@ -1,16 +1,16 @@
 import {NextPageWithLayout} from "@/pages/_app";
-import {ReactElement} from "react";
+import {ReactElement, useEffect} from "react";
 import DashboardLayout from "@/layouts/DashboardLayout";
 import BaseLayout from "@/layouts/base";
 
-const Home:NextPageWithLayout = () => {
+const Dashboard:NextPageWithLayout = () => {
 
     return (
         <h1>Dashboard content</h1>
     )
 }
 
-Home.getLayout = function getLayout(page: ReactElement) {
+Dashboard.getLayout = function getLayout(page: ReactElement) {
     return (
         <BaseLayout>
             <DashboardLayout>{page}</DashboardLayout>
@@ -18,4 +18,4 @@ Home.getLayout = function getLayout(page: ReactElement) {
     )
 }
 
-export default Home
+export default Dashboard
