@@ -17,9 +17,10 @@ module.exports = {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-
     extend: {
-        colors: colors,
+      colors: {
+        brandAccent: '#23A6F0',
+      },
     },
   },
   plugins: [],
