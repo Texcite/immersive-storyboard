@@ -1,3 +1,4 @@
+
 import {FC, useState} from "react";
 import {
     closestCenter,
@@ -15,13 +16,21 @@ import {
     verticalListSortingStrategy,
     arrayMove,
 } from "@dnd-kit/sortable";
+import VideoEditingTimeline from 'video-editing-timeline-react';
 
 interface StoryBoardTimelineProps {
     panels: Panel[]
 }
 
-export const StoryBoardTimeline: FC<StoryBoardTimelineProps> = ({panels}) => {
+export const StoryBoardTimeline: FC<StoryBoardTimelineProps> = ({ panels }) => {
 
+
+ const timeLineConfig = {
+        canvasWidth: (200 * panels.length) + 100,
+        canvasHeight: 56,
+        minimumScale: 10,
+        minimumScaleTime: 18,
+    }
     const [isLocked, setLocked] = useState(true)
     const [items, setItems] = useState(panels.map(p => p.id))
     const [activeId, setActiveId] = useState(null);
@@ -31,6 +40,7 @@ export const StoryBoardTimeline: FC<StoryBoardTimelineProps> = ({panels}) => {
             coordinateGetter: sortableKeyboardCoordinates,
         })
     );
+    
     return (
         <DndContext
             collisionDetection={closestCenter}
@@ -57,9 +67,10 @@ export const StoryBoardTimeline: FC<StoryBoardTimelineProps> = ({panels}) => {
                                 <LockClosedIcon className="w-6 h-6 text-[#23A6F0]" onClick={() => setLocked(false)}/>}
                         </div>
                     </div>
+
                     <div className="w-full pl-16  bg-red-800 flex flex-col items-center justify-center">
                         <div className="inner-wrapper p-2 flex items-center justify-center w-full">
-                            <h1 className="text-white">time tables</h1>
+                           <VideoEditingTimeline config={timeLineConfig} />
                         </div>
                         <div className="panels-wrapper w-full flex flex-row space-x-2 bg-black text-white p-4">
                             <div className=" overflow-hidden overflow-x-scroll space-x-3 flex">
