@@ -12,7 +12,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        customBlue: '#23A6F0',
+        brandAccent: '#23A6F0',
       },
     },
   },

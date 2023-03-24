@@ -72,14 +72,14 @@ const StoryboardExport:NextPageWithLayout = ({}) => {
         <>
             <div className="bg-white-300">
                 <div id="navbar" className="flex justify-between items-center pr-20 pl-20 pt-10">
-                    <button className="rounded-full bg-transparent text-customBlue px-8 py-3 border border-customBlue">
+                    <button className="rounded-full bg-transparent text-brandAccent px-8 py-3 border border-brandAccent">
                         Edit
                     </button>
                     <div className="text-center w-1/3">
                         <h1 className="text-2xl">Export preview</h1>
                         <p>This is the preview of your storyboard. When you have pressed the download button you can open the index.html file to see the storyboard.</p>
                     </div>
-                    <button className="rounded-full p-3 px-6 bg-customBlue text-white hover:bg-customBlue" onClick={exportPage}
+                    <button className="rounded-full p-3 px-6 bg-brandAccent text-white hover:bg-brandAccent" onClick={exportPage}
                         
                     >
                         Download
