@@ -20,7 +20,7 @@ const Storyboard: FC<StoryboardProps> = ({ panels, title }) => {
             <h1 className="text-4xl font-bold mb-10"> {title} </h1>
             <div className="grid grid-cols-4 gap-20">
                     {panels.map((panel, index) => (
-                    <div className="relative">
+                    <div className="relative" key={index}>
                         <span className="absolute top-0 left-0 m-2 text-white bg-brandAccent rounded-full w-6 h-6 flex items-center justify-center">
                             {index + 1}
                         </span>
