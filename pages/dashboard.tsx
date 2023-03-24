@@ -10,12 +10,12 @@ const Dashboard:NextPageWithLayout = () => {
     )
 }
 
-// Dashboard.getLayout = function getLayout(page: ReactElement) {
-//     return (
-//         <BaseLayout>
-//             <DashboardLayout>{page}</DashboardLayout>
-//         </BaseLayout>
-//     )
-// }
+Dashboard.getLayout = function getLayout(page: ReactElement) {
+    return (
+        <BaseLayout>
+            <DashboardLayout>{page}</DashboardLayout>
+        </BaseLayout>
+    )
+}
 
 export default Dashboard
