@@ -70,7 +70,7 @@ export default function BuilderLayout({children}: LayoutProps){
   
     const handleButtonClick = async () => {
       try {
-        const data = await getPrediction(translation_y, translation_x, angle, style);
+        const data = await getPrediction();
         setPrediction(data);
       } catch (error) {
         console.error(error);
