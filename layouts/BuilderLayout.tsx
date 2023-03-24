@@ -7,7 +7,10 @@ const apiKey = process.env.NEXT_PUBLIC_APIKEY;
 const apiUrl = 'https://api.replicate.com/v1/predictions';
 
 export default function BuilderLayout({children}: LayoutProps){
-    
+
+    const [formattedData, setFormattedData] = useState({ id: null, input: null, output: null, status: null });
+    const [inputValue, setInputValue] = useState("");
+
 
     function timeout(delay: number) {
         return new Promise( res => setTimeout(res, delay) );
@@ -19,12 +22,14 @@ export default function BuilderLayout({children}: LayoutProps){
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Token ${apiKey}`,
-            'mode': 'no-cors',
+            'mode': 'no-cors'
           },
           body: JSON.stringify({
             'version': 'e22e77495f2fb83c34d5fae2ad8ab63c0a87b6b573b6208e1535b23b89ea66d6',
             'input': {
-              'max_frames': '100'
+              'max_frames': 100,
+              'animation_prompts': "0: " + inputValue,
+              'translation_y': "0: (5)",
             }
           })
         });
@@ -45,21 +50,14 @@ export default function BuilderLayout({children}: LayoutProps){
 
           const complete = await secondResponse.json();
 
-          const formattedData = {
+          setFormattedData({
             id: complete.id,
             input: complete.input,
             output: complete.output,
             status: complete.status
-          };
-
-          console.log(formattedData); // or do something else with the formatted data 
+          });
           
-          return (
-            formattedData.output
-            );
         }
-
-       
 
 function backHandler(){
     window.location.href = '/timeline';
@@ -82,9 +80,25 @@ return (
         <button className='flex flex-col items-center justify-center rounded-3xl border-blue-400 h-10 w-16 border-2' onClick={backHandler}>
             Back
         </button>
+
+        <input
+          type="text"
+          placeholder="Enter animation prompts"
+          value={inputValue}
+          onChange={(e) => {
+            setInputValue(e.target.value);
+            console.log(e.target.value);
+          }}
+        />
      
       <button className='flex flex-col items-center justify-center rounded-3xl border-blue-400 h-10 w-38 border-2' onClick={handleButtonClick}>Get Prediction</button>
       {prediction && <pre>{JSON.stringify(prediction, null, 2)}</pre>}
+
+      {formattedData !== null && formattedData.output ? (
+            <video controls>
+              <source src={formattedData.output} type="video/mp4" />
+            </video>
+          ) : null}
     </div>
 );
 }
