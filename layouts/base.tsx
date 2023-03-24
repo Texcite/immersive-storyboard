@@ -6,7 +6,7 @@ export type LayoutProps = {
 
 const BaseLayout = ({children}: LayoutProps) => {
     return (
-        <main className="bg-red-800">
+        <main className="">
             {children}
         </main>
     )

@@ -2,9 +2,13 @@ import {NextPageWithLayout} from "@/pages/_app";
 import BaseLayout from "@/layouts/base";
 import DashboardLayout from "@/layouts/DashboardLayout";
 import {ReactElement, useState} from "react";
+import {StoryBoardTimeline} from "@/components/timeline";
+import {Panel} from "@/components/timeline/panel";
+import {horizontalListSortingStrategy} from "@dnd-kit/sortable";
 import dynamic from 'next/dynamic'
 import {PauseIcon, PlayIcon} from "@heroicons/react/20/solid";
 const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
+
 
 // TODO Delete before merge
 // Create a panel type for the panels array
@@ -17,12 +21,14 @@ type Panel = {
 // Create a panels array
 const panels: Array<Panel> = [
     {
+      id: "sd342ferg1231",
         title: 'Panel 1',
         thumbnail: 'https://ple1.nigelritfeld.nl/concept/signing-contract.jpeg',
         video: 'https://replicate.delivery/mgxm/b2491cb9-5863-4b47-b0f0-40e9af1c2565/out.mp4',
         comments: "Comments",
     },
     {
+      id: "panelqq111",
         title: 'Panel 2',
         thumbnail: 'https://ple1.nigelritfeld.nl/concept/signing-contract.jpeg',
         video: 'https://replicate.delivery/mgxm/08e3a2d5-4594-4934-a34a-6e249744ee52/out.mp4',
@@ -48,6 +54,7 @@ const Timeline: NextPageWithLayout = ({}) => {
     };
 
     return (
+    <>
         <section className="w-full bg-black flex flex-col items-center justify-center rounded-xl">
             <ReactPlayer
                 muted
@@ -81,6 +88,9 @@ const Timeline: NextPageWithLayout = ({}) => {
                 </button>
             </div>
         </section>
+        <h1>Timeline</h1>
+            <StoryBoardTimeline panels={panels}/>
+        </>
     )
 }
 
