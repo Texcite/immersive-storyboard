@@ -25,8 +25,8 @@ SceneBuilder.getLayout = function (page: ReactElement) {
 
   const [panelOptions, setPanelState] = useState({
 
-    title: "test",
-    comment: "dit is een test",
+    title: "",
+    comment: "",
     description: "",
     style: "realistic",
     zoom: {
@@ -34,16 +34,15 @@ SceneBuilder.getLayout = function (page: ReactElement) {
       translation_y: 0,
       zoom: 1.04,
     },
-    perspective: "optie 1",
     POV: "first person"
 
   });
 
   function changePanelState(newObject: any) {
     console.log(panelOptions)
-var x
-var y
-var zoom
+    var x
+    var y
+    var zoom
     if (!newObject.zoom) {
       console.log('test')
       x = panelOptions.zoom.translation_x
@@ -68,7 +67,6 @@ var zoom
         zoom: zoom || panelOptions.zoom.zoom,
 
       },
-      perspective: newObject.perspective || panelOptions.perspective,
       POV: newObject.POV || panelOptions.POV
     });
 
@@ -91,7 +89,7 @@ var zoom
         'version': 'e22e77495f2fb83c34d5fae2ad8ab63c0a87b6b573b6208e1535b23b89ea66d6',
         'input': {
           'max_frames': 100,
-          'animation_prompts': "0: " + panelOptions.description + ", in " + panelOptions.description + " style, from a" + panelOptions.perspective /*+ "POV while performing a" + panelOptions.cameraZoom */,
+          'animation_prompts': "0: " + panelOptions.description + ", in " + panelOptions.description + " style, from a" + panelOptions.POV /*+ "POV while performing a" + panelOptions.cameraZoom */,
           'translation_y': panelOptions.zoom.translation_y,
           'translation_x': panelOptions.zoom.translation_x,
           'angle': 0,
@@ -146,73 +144,98 @@ var zoom
     <div>
 
       <p className="text-6xl font-bold pb-2 bg-gray-800 text-gray-50 pb-16 pt-16 px-64">Scene builder</p>
-      <div className="bg-gray-50 p-1 rounded-lg px-64 pt-2">
 
-      <button className='flex flex-col items-center justify-center rounded-3xl bg-blue-400 h-10 w-16 text-gray-50' onClick={backHandler}>
+      <button className='flex flex-col items-center justify-center rounded-3xl bg-blue-400 h-10 w-16 text-gray-50 ml-64 mt-2' onClick={backHandler}>
         Back
       </button>
+      <div className="flex flex-row">
 
-      <label htmlFor="title" className="block text-xl font-bold text-gray-900 pt-6">Scene title:</label>
-      <input
-        id="title"
-        type="text"
-        placeholder="Enter a title for your scene..."
-        onChange={(e) => changePanelState({ title: e.target.value })}
-        className="block p-2.5 w-full text-sm placeholder-gray-600 text-gray-900 bg-gray-300 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-800 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-      />
+        <div id="promptscreen" className="basis-1/2 bg-gray-50 p-1 rounded-lg pl-64 pr-16 pt-2">
 
-      <label htmlFor="title" className="block text-xl font-bold text-gray-900 pt-6">Scene caption:</label>
-      <input
-        id="title"
-        type="text"
-        placeholder="Enter a caption for your scene..."
-        onChange={(e) => changePanelState({ comment: e.target.value })}
-        className="block p-2.5 w-full text-sm placeholder-gray-600 text-gray-900 bg-gray-300 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-800 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-      />
+          <label htmlFor="title" className="block text-xl font-bold text-gray-900 pt-6">Scene title:</label>
+          <input
+            id="title"
+            type="text"
+            placeholder="Enter a title for your scene..."
+            onChange={(e) => changePanelState({ title: e.target.value })}
+            className="block p-2.5 w-full text-sm placeholder-gray-600 text-gray-900 bg-gray-300 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-800 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          />
 
-      <label htmlFor="description" className="block text-xl font-bold text-gray-900 pt-6">Your scene:</label>
-      <textarea
-        id="description"
-        rows={4}
-        className="block p-2.5 w-full text-sm placeholder-gray-600 text-gray-900 bg-gray-300 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-800 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        placeholder="Describe the scene you want to create..."
-        onChange={(e) => changePanelState({ description: e.target.value })}
-      />
+          <label htmlFor="title" className="block text-xl font-bold text-gray-900 pt-6">Scene caption:</label>
+          <input
+            id="title"
+            type="text"
+            placeholder="Enter a caption for your scene..."
+            onChange={(e) => changePanelState({ comment: e.target.value })}
+            className="block p-2.5 w-full text-sm placeholder-gray-600 text-gray-900 bg-gray-300 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-800 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          />
 
-      <label className="pt-6 block mb-2 text-xl font-bold text-gray-900">Style:</label>
-      <p className="font-medium text-lg text-gray-900">Choose the art-style for your scene.</p>
-      <Options
-        availableOptions={styleList}
-        stateVariable="perspective"
-        changeSelected={changePanelState}
-      />
+          <label htmlFor="description" className="block text-xl font-bold text-gray-900 pt-6">Your generation prompt:</label>
+          <textarea
+            id="description"
+            readOnly={true}
+            rows={4}
+            className="block p-2.5 w-full text-sm placeholder-gray-600 text-gray-900 bg-gray-300 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-800 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            value={`I want to create a video of <${panelOptions.description || "Please fill in the 'your scene' field"}> in the style of <${panelOptions.style}>. The camera will have a <${panelOptions.POV}> perspective`}
+            // value={`I want to create a video of ${panelOptions.description} in the style of ${panelOptions.style}. The Camera should zoom towards <Camera Zoom> with ${panelOptions.POV}`}
+          />
 
-      <label className="pt-6 block mb-2 text-xl font-bold text-gray-900 ">Zoom:</label>
-      <p className="font-medium text-lg text-gray-900">Choose a direction the camera will zoom towards.</p>
-      <Options
-        availableOptions={cameraZoomList}
-        stateVariable="camaraZoom"
-        changeSelected={changePanelState}
-      />
+        </div>
 
-      <label className="pt-6 block mb-2 text-xl font-bold text-gray-900 ">POV:</label>
-      <p className="font-medium text-lg text-gray-900">Choose a camera point of view for your</p>
-      <Options
-        availableOptions={POVList}
-        stateVariable="POV"
-        changeSelected={changePanelState}
-      />
 
-      <label className="pt-6 block mb-2 text-xl font-bold text-gray-900 ">Generate panel:</label>
-      <button className='flex flex-col items-center justify-center rounded-3xl bg-blue-500 text-gray-50 h-10 w-40 border-2 mt-4' onClick={handleButtonClick}>Create scene</button>
-      {prediction && <pre>{JSON.stringify(prediction, null, 2)}</pre>}
+        <div id="promptOptions" className="basis-1/2 bg-gray-50 p-1 rounded-lg pr-64 pl-16 pt-2">
 
-      {formattedData !== null && formattedData.output ? (
-        <video controls>
-          <source src={formattedData.output} type="video/mp4" />
-        </video>
-      ) : null}
+          <label htmlFor="description" className="block text-xl font-bold text-gray-900 pt-6">Your scene:</label>
+          <textarea
+            id="description"
+            rows={4}
+            className="block p-2.5 w-full text-sm placeholder-gray-600 text-gray-900 bg-gray-300 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-800 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Describe the scene you want to create..."
+            onChange={(e) => changePanelState({ description: e.target.value })}
+          />
+
+          <label className="pt-6 block mb-2 text-xl font-bold text-gray-900">Style:</label>
+          <p className="font-medium text-lg text-gray-900">Choose the art-style for your scene.</p>
+          <Options
+            availableOptions={styleList}
+            stateVariable="style"
+            changeSelected={changePanelState}
+          />
+
+          <label className="pt-6 block mb-2 text-xl font-bold text-gray-900 ">Zoom:</label>
+          <p className="font-medium text-lg text-gray-900">Choose a direction the camera will zoom towards.</p>
+          <Options
+            availableOptions={cameraZoomList}
+            stateVariable="camaraZoom"
+            changeSelected={changePanelState}
+          />
+
+          <label className="pt-6 block mb-2 text-xl font-bold text-gray-900 ">POV:</label>
+          <p className="font-medium text-lg text-gray-900">Choose a camera point of view for your</p>
+          <Options
+            availableOptions={POVList}
+            stateVariable="POV"
+            changeSelected={changePanelState}
+          />
+
+          <label className="pt-6 block mb-2 text-xl font-bold text-gray-900 ">Generate panel:</label>
+          <button className='flex flex-col items-center justify-center rounded-3xl bg-blue-500 text-gray-50 h-10 w-40 border-2 mt-4' onClick={handleButtonClick}>Create scene</button>
+          {prediction && <pre>{JSON.stringify(prediction, null, 2)}</pre>}
+
+          {formattedData !== null && formattedData.output ? (
+            <video controls>
+              <source src={formattedData.output} type="video/mp4" />
+            </video>
+          ) : null}
+        </div>
+
       </div>
+
+
+
+
+
+
     </div>
 
   </BaseLayout>
@@ -220,8 +243,8 @@ var zoom
 
 export default SceneBuilder
 
-var baseClasses = 'rounded bg-gray-800 text-gray-50 hover:bg-blue-500 hover:cursor-pointer border-blue-500 border-2 p-2 text-center'
-var baseSelectedClass = 'rounded bg-blue-500 text-gray-50 hover:bg-blue-500 hover:cursor-pointer border-blue-500 border-2 p-2 text-center'
+var baseClasses = 'rounded bg-gray-800 text-gray-50 hover:bg-blue-500 hover:cursor-pointer border-blue-500 border-2 p-2 text-center max-h-12 w-fit'
+var baseSelectedClass = 'rounded bg-blue-500 text-gray-50 hover:bg-blue-500 hover:cursor-pointer border-blue-500 border-2 p-2 text-center max-h-12 w-fit'
 
 var styleList = {
 

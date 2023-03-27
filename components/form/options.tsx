@@ -4,8 +4,8 @@ import { classNames } from "@/utils/classNames";
 export default function Options(props: any) {
 
     var posibleOptions = props.availableOptions
-    var baseClasses = 'rounded bg-gray-800 text-gray-50 hover:bg-blue-500 hover:cursor-pointer border-blue-500 border-2 p-2 text-center'
-    var baseSelectedClass = 'rounded bg-blue-500 text-gray-50 hover:bg-blue-500 hover:cursor-pointer border-blue-500 border-2 p-2 text-center'
+    var baseClasses = 'rounded bg-gray-800 text-gray-50 hover:bg-blue-500 hover:cursor-pointer border-blue-500 border-2 p-2 text-center max-h-12 w-fit'
+    var baseSelectedClass = 'rounded bg-blue-500 text-gray-50 hover:bg-blue-500 hover:cursor-pointer border-blue-500 border-2 p-2 text-center max-h-12 w-fit'
 
     function changeSelected(value: any) {
 
@@ -37,7 +37,7 @@ export default function Options(props: any) {
 
     return (
         <div>
-            <div className="space-y-4 gap-8 columns-5 items-center pt-2">
+            <div className="flex flex-wrap gap-4  items-baseline pt-2">
                 {posibleOptions.options.map((option: any, key: any) => (
 
                     <div key={key} className={option.classes} onClick={() => changeSelected(option)} >{option.name}</div>
