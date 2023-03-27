@@ -28,7 +28,7 @@ SceneBuilder.getLayout = function (page: ReactElement) {
         return new Promise( res => setTimeout(res, delay) );
     }
 
-    async function getPrediction(translation_y: string, translation_x: string, angle: string, style: string) {
+    async function getPrediction() {
         const response = await fetch(apiUrl, {
           method: 'POST',
           headers: {
@@ -40,10 +40,7 @@ SceneBuilder.getLayout = function (page: ReactElement) {
             'version': 'e22e77495f2fb83c34d5fae2ad8ab63c0a87b6b573b6208e1535b23b89ea66d6',
             'input': {
               'max_frames': 100,
-              'animation_prompts': "0: " + inputValue + ", in " + style + " style",
-              'translation_y': translation_y,
-              'translation_x': translation_x,
-              'angle': angle,
+              'animation_prompts': "0: " + inputValue + ", in style",
 
             }
           })
@@ -77,13 +74,10 @@ SceneBuilder.getLayout = function (page: ReactElement) {
     function backHandler(){
       window.location.href = '/timeline';
     }
-
-    const [prediction, setPrediction] = useState(null);
   
     const handleButtonClick = async () => {
       try {
         const data = await getPrediction();
-        setPrediction(data);
       } catch (error) {
         console.error(error);
         }
@@ -109,7 +103,7 @@ SceneBuilder.getLayout = function (page: ReactElement) {
         />
      
         <button className='flex flex-col items-center justify-center rounded-3xl border-blue-400 h-10 w-38 border-2' onClick={handleButtonClick}>Get Prediction</button>
-        {prediction && <pre>{JSON.stringify(prediction, null, 2)}</pre>}
+
 
         {formattedData !== null && formattedData.output ? (
           <video controls>
