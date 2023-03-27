@@ -22,8 +22,7 @@ export const VideoPlayer:FC<VideoPlayerProps> = ({panels, setCurrent}) => {
         const currentPanelIndex = panels.findIndex((panel) => panel === video);
         const nextPanelIndex = currentPanelIndex + 1;
         setCurrent(currentPanelIndex)
-        const nextPanel =
-            nextPanelIndex < panels.length ? panels[nextPanelIndex] : panels[0];
+        console.log(currentPanelIndex)
         const nextPanel = nextPanelIndex < panels.length ? panels[nextPanelIndex] : panels[0];
 
         if (nextPanelIndex === panels.length) {
