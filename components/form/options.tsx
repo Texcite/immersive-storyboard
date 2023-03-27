@@ -19,7 +19,6 @@ export default function Options(props: any) {
                 }
 
                 else {
-                    console.log(option.zoom.translation_x)
                     props.changeSelected({
                         zoom: {
                             translation_x: option.zoom.translation_x,

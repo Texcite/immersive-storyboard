@@ -10,16 +10,6 @@ const apiKey = process.env.NEXT_PUBLIC_APIKEY;
 const apiUrl = 'https://api.replicate.com/v1/predictions';
 
 const SceneBuilder: NextPageWithLayout = ({ }) => {
-  return (
-    <>
-      <h1>content</h1>
-      <h1>Video player</h1>
-      <h1>Timeline</h1>
-    </>
-  )
-}
-
-SceneBuilder.getLayout = function (page: ReactElement) {
 
   const [formattedData, setFormattedData] = useState({ id: null, input: null, output: null, status: null });
 
@@ -39,12 +29,10 @@ SceneBuilder.getLayout = function (page: ReactElement) {
   });
 
   function changePanelState(newObject: any) {
-    console.log(panelOptions)
     var x
     var y
     var zoom
     if (!newObject.zoom) {
-      console.log('test')
       x = panelOptions.zoom.translation_x
       y = panelOptions.zoom.translation_y
       zoom = panelOptions.zoom.zoom
@@ -239,6 +227,16 @@ SceneBuilder.getLayout = function (page: ReactElement) {
     </div>
 
   </BaseLayout>
+}
+
+SceneBuilder.getLayout = function (page: ReactElement) {
+
+  return (
+    <>
+      {page}
+    </>
+  )
+
 }
 
 export default SceneBuilder
