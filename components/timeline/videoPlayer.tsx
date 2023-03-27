@@ -1,14 +1,15 @@
-import { FC, useEffect, useState } from "react";
-import { PauseIcon, PlayIcon } from "@heroicons/react/20/solid";
+import {Dispatch, FC, useState, useEffect} from "react";
+import {PauseIcon, PlayIcon} from "@heroicons/react/20/solid";
 import { Panel } from "./panel";
 import dynamic from "next/dynamic"
 const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
 
 interface VideoPlayerProps {
     panels: Array<Panel>
+    setCurrent: Dispatch<number>
 }
 
-export const VideoPlayer: FC<VideoPlayerProps> = ({ panels }) => {
+export const VideoPlayer:FC<VideoPlayerProps> = ({panels, setCurrent}) => {
     const [video, setVideo] = useState<Panel>(panels[0]);
     const [playing, setPlaying] = useState<boolean>(true);
     const [duration, setDuration] = useState<number>(0);
@@ -20,6 +21,7 @@ export const VideoPlayer: FC<VideoPlayerProps> = ({ panels }) => {
     const handleEnd = () => {
         const currentPanelIndex = panels.findIndex((panel) => panel === video);
         const nextPanelIndex = currentPanelIndex + 1;
+        setCurrent(currentPanelIndex)
         const nextPanel = nextPanelIndex < panels.length ? panels[nextPanelIndex] : panels[0];
 
         if (nextPanelIndex === panels.length) {
