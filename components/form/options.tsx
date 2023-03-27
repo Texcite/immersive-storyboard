@@ -4,8 +4,8 @@ import { classNames } from "@/utils/classNames";
 export default function Options(props: any) {
 
     var posibleOptions = props.availableOptions
-    var baseClasses = 'rounded bg-gray-800 text-gray-50 hover:bg-blue-500 hover:cursor-pointer border-blue-500 border-2 p-2 text-center max-h-12 w-fit'
-    var baseSelectedClass = 'rounded bg-blue-500 text-gray-50 hover:bg-blue-500 hover:cursor-pointer border-blue-500 border-2 p-2 text-center max-h-12 w-fit'
+    var baseClasses = 'rounded bg-gray-800 text-gray-50 hover:bg-sky-500 hover:cursor-pointer border-sky-500 border-2 p-2 text-center max-h-12 w-fit'
+    var baseSelectedClass = 'rounded bg-sky-500 text-gray-50 hover:bg-sky-500 hover:cursor-pointer border-sky-500 border-2 p-2 text-center max-h-12 w-fit'
 
     function changeSelected(value: any) {
 

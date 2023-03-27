@@ -145,7 +145,7 @@ SceneBuilder.getLayout = function (page: ReactElement) {
 
       <p className="text-6xl font-bold pb-2 bg-gray-800 text-gray-50 pb-16 pt-16 px-64">Scene builder</p>
 
-      <button className='flex flex-col items-center justify-center rounded-3xl bg-blue-400 h-10 w-16 text-gray-50 ml-64 mt-2' onClick={backHandler}>
+      <button className='flex flex-col items-center justify-center rounded-3xl bg-sky-500 h-10 w-16 text-gray-50 ml-64 mt-2' onClick={backHandler}>
         Back
       </button>
       <div className="flex flex-row">
@@ -158,7 +158,7 @@ SceneBuilder.getLayout = function (page: ReactElement) {
             type="text"
             placeholder="Enter a title for your scene..."
             onChange={(e) => changePanelState({ title: e.target.value })}
-            className="block p-2.5 w-full text-sm placeholder-gray-600 text-gray-900 bg-gray-300 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-800 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="block p-2.5 w-full text-sm placeholder-gray-600 text-gray-900 bg-gray-300 rounded-lg border border-gray-300 focus:ring-sky-500 focus:border-sky-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-800 dark:text-white dark:focus:ring-sky-500 dark:focus:border-sky-500"
           />
 
           <label htmlFor="title" className="block text-xl font-bold text-gray-900 pt-6">Scene caption:</label>
@@ -167,7 +167,7 @@ SceneBuilder.getLayout = function (page: ReactElement) {
             type="text"
             placeholder="Enter a caption for your scene..."
             onChange={(e) => changePanelState({ comment: e.target.value })}
-            className="block p-2.5 w-full text-sm placeholder-gray-600 text-gray-900 bg-gray-300 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-800 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="block p-2.5 w-full text-sm placeholder-gray-600 text-gray-900 bg-gray-300 rounded-lg border border-gray-300 focus:ring-sky-500 focus:border-sky-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-800 dark:text-white dark:focus:ring-sky-500 dark:focus:border-sky-500"
           />
 
           <label htmlFor="description" className="block text-xl font-bold text-gray-900 pt-6">Your generation prompt:</label>
@@ -175,7 +175,7 @@ SceneBuilder.getLayout = function (page: ReactElement) {
             id="description"
             readOnly={true}
             rows={4}
-            className="block p-2.5 w-full text-sm placeholder-gray-600 text-gray-900 bg-gray-300 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-800 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="block p-2.5 w-full text-sm placeholder-gray-600 text-gray-900 bg-gray-300 rounded-lg border border-gray-300 focus:ring-sky-500 focus:border-sky-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-800 dark:text-white dark:focus:ring-sky-500 dark:focus:border-sky-500"
             value={`I want to create a video of <${panelOptions.description || "Please fill in the 'your scene' field"}> in the style of <${panelOptions.style}>. The camera will have a <${panelOptions.POV}> perspective`}
             // value={`I want to create a video of ${panelOptions.description} in the style of ${panelOptions.style}. The Camera should zoom towards <Camera Zoom> with ${panelOptions.POV}`}
           />
@@ -189,7 +189,7 @@ SceneBuilder.getLayout = function (page: ReactElement) {
           <textarea
             id="description"
             rows={4}
-            className="block p-2.5 w-full text-sm placeholder-gray-600 text-gray-900 bg-gray-300 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-800 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="block p-2.5 w-full text-sm placeholder-gray-600 text-gray-900 bg-gray-300 rounded-lg border border-gray-300 focus:ring-sky-500 focus:border-sky-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-800 dark:text-white dark:focus:ring-sky-500 dark:focus:border-sky-500"
             placeholder="Describe the scene you want to create..."
             onChange={(e) => changePanelState({ description: e.target.value })}
           />
@@ -219,7 +219,7 @@ SceneBuilder.getLayout = function (page: ReactElement) {
           />
 
           <label className="pt-6 block mb-2 text-xl font-bold text-gray-900 ">Generate panel:</label>
-          <button className='flex flex-col items-center justify-center rounded-3xl bg-blue-500 text-gray-50 h-10 w-40 border-2 mt-4' onClick={handleButtonClick}>Create scene</button>
+          <button className='flex flex-col items-center justify-center rounded-3xl bg-sky-500 text-gray-50 h-10 w-40 border-2 mt-4' onClick={handleButtonClick}>Create scene</button>
           {prediction && <pre>{JSON.stringify(prediction, null, 2)}</pre>}
 
           {formattedData !== null && formattedData.output ? (
@@ -243,8 +243,8 @@ SceneBuilder.getLayout = function (page: ReactElement) {
 
 export default SceneBuilder
 
-var baseClasses = 'rounded bg-gray-800 text-gray-50 hover:bg-blue-500 hover:cursor-pointer border-blue-500 border-2 p-2 text-center max-h-12 w-fit'
-var baseSelectedClass = 'rounded bg-blue-500 text-gray-50 hover:bg-blue-500 hover:cursor-pointer border-blue-500 border-2 p-2 text-center max-h-12 w-fit'
+var baseClasses = 'rounded bg-gray-800 text-gray-50 hover:bg-sky-500 hover:cursor-pointer border-sky-500 border-2 p-2 text-center max-h-12 w-fit'
+var baseSelectedClass = 'rounded bg-sky-500 text-gray-50 hover:bg-sky-500 hover:cursor-pointer border-sky-500 border-2 p-2 text-center max-h-12 w-fit'
 
 var styleList = {
 
