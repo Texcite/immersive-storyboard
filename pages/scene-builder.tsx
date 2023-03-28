@@ -3,6 +3,8 @@ import BaseLayout from "@/layouts/base";
 import {ReactElement} from "react";
 import {useState} from "react";
 import Options from "@/components/form/options";
+import {Panel} from "@/components/timeline/panel";
+import {useGlobalContext} from "@/providers/GlobalContextProvider";
 
 const SceneBuilder: NextPageWithLayout = ({}) => {
     const apiKey = process.env.NEXT_PUBLIC_APIKEY;
@@ -10,6 +12,8 @@ const SceneBuilder: NextPageWithLayout = ({}) => {
     const [formattedData, setFormattedData] = useState({id: null, input: null, output: null, status: null});
     const [inputValue, setInputValue] = useState("");
     const [prediction, setPrediction] = useState(null);
+    // @ts-ignore
+    const {setPanels} = useGlobalContext()
     const [panelOptions, setPanelState] = useState({
         title: "",
         comment: "",
@@ -112,7 +116,14 @@ const SceneBuilder: NextPageWithLayout = ({}) => {
             output: complete.output,
             status: complete.status
         });
-
+        const panel: Panel = {
+            id: complete.id,
+            thumbnail: complete.output,
+            video: complete.output,
+            title: panelOptions.title,
+            comments: panelOptions.comment
+        }
+        setPanels((panels: Panel[])=> panels.push(panel))
     }
 
     /**
