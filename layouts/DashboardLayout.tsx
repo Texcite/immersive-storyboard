@@ -3,7 +3,6 @@ import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import {classNames} from "@/utils/classNames";
 import {LayoutProps} from "@/layouts/base";
-import {useGlobalContext} from "@/providers/GlobalContextProvider";
 
 const user = {
     name: 'Tom Cook',
@@ -14,7 +13,7 @@ const user = {
 const navigation = [
     { name: 'Dashboard', href: '/dashboard', current: true },
     { name: 'Timeline', href: '/timeline', current: false },
-    { name: 'Scene Builder', href: '/scene-builder', current: false},
+    { name: 'Storyboard Export', href: '/storyboard-export'},
 ]
 const userNavigation = [
     { name: 'Your Profile', href: '#' },
@@ -22,7 +21,7 @@ const userNavigation = [
     { name: 'Sign out', href: '#' },
 ]
 const Navigation = () => {
-    return <Disclosure as="nav" className="bg-gray-800">
+    return <Disclosure as="nav" className="bg-main/50">
         {({ open }) => (
             <>
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">

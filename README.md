@@ -1,4 +1,4 @@
-# immersive-storyboard
+# immersive-storyboard (Staging)
 
 Immersive storyboard is an Next.js web-applicaion which help you to make a immersive storyboard.
 
