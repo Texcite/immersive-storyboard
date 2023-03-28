@@ -126,7 +126,6 @@ const SceneBuilder: NextPageWithLayout = ({}) => {
          * @param newObject
          */
         function changePanelState(newObject: any) {
-            console.log(newObject)
             var x
             var y
             var zoom
