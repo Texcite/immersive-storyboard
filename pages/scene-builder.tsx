@@ -120,7 +120,6 @@ const SceneBuilder: NextPageWithLayout = ({ }) => {
   const handleButtonClick = async () => {
     try {
       const data = await getPrediction();
-      setPrediction(data);
     } catch (error) {
       console.error(error);
     }
