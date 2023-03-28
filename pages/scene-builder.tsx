@@ -126,57 +126,60 @@ const SceneBuilder: NextPageWithLayout = ({ }) => {
   };
 
 
-  return <BaseLayout>
+  return (
 
-    <div>
+    <div className="h-screen">
+      <div className="flex flex-row h-full divide-x divide-solid">
 
-      <p className="text-6xl font-bold pb-2 bg-gray-800 text-gray-50 pb-16 pt-16 px-64">Scene builder</p>
+        <div id="promptscreen" className="overflow-hidden basis-1/2 bg-gray-100 px-14 h-full flex items-start flex-col justify-center space-y-6">
 
-      <button className='flex flex-col items-center justify-center rounded-3xl bg-sky-500 h-10 w-16 text-gray-50 ml-64 mt-2' onClick={backHandler}>
-        Back
-      </button>
-      <div className="flex flex-row">
+          <label htmlFor="description" className="block text-5xl font-bold text-gray-900 pt-6">Result prompt:</label>
+          <p className="text-sm4 text-gray-600">See what your prompt looks like.</p>
 
-        <div id="promptscreen" className="basis-1/2 bg-gray-50 p-1 rounded-lg pl-64 pr-16 pt-2">
+          <p className="text-4xl font-semibold leading-20">
+            I want to create a video of <span className="text-sky-500"> {panelOptions.description || "Please fill in the 'your scene' field"} </span> 
+            in the style of <span className="text-sky-500"> {panelOptions.style} </span>. 
+            The camera will have a <span className="text-sky-500"> {panelOptions.POV} </span> perspective.
+          </p>
 
-          <label htmlFor="title" className="block text-xl font-bold text-gray-900 pt-6">Scene title:</label>
-          <input
-            id="title"
-            type="text"
-            placeholder="Enter a title for your scene..."
-            onChange={(e) => changePanelState({ title: e.target.value })}
-            className="block p-2.5 w-full text-sm placeholder-gray-600 text-gray-900 bg-gray-300 rounded-lg border border-gray-300 focus:ring-sky-500 focus:border-sky-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-800 dark:text-white dark:focus:ring-sky-500 dark:focus:border-sky-500"
-          />
+          <button className='flex flex-col items-center justify-center rounded-3xl bg-sky-500 text-gray-50 h-10 w-40 border-2 mt-4' onClick={handleButtonClick}>Generate panel</button>
 
-          <label htmlFor="title" className="block text-xl font-bold text-gray-900 pt-6">Scene caption:</label>
-          <input
-            id="title"
-            type="text"
-            placeholder="Enter a caption for your scene..."
-            onChange={(e) => changePanelState({ comment: e.target.value })}
-            className="block p-2.5 w-full text-sm placeholder-gray-600 text-gray-900 bg-gray-300 rounded-lg border border-gray-300 focus:ring-sky-500 focus:border-sky-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-800 dark:text-white dark:focus:ring-sky-500 dark:focus:border-sky-500"
-          />
-
-          <label htmlFor="description" className="block text-xl font-bold text-gray-900 pt-6">Your generation prompt:</label>
-          <textarea
-            id="description"
-            readOnly={true}
-            rows={4}
-            className="block p-2.5 w-full text-sm placeholder-gray-600 text-gray-900 bg-gray-300 rounded-lg border border-gray-300 focus:ring-sky-500 focus:border-sky-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-800 dark:text-white dark:focus:ring-sky-500 dark:focus:border-sky-500"
-            value={`I want to create a video of <${panelOptions.description || "Please fill in the 'your scene' field"}> in the style of <${panelOptions.style}>. The camera will have a <${panelOptions.POV}> perspective`}
-            // value={`I want to create a video of ${panelOptions.description} in the style of ${panelOptions.style}. The Camera should zoom towards <Camera Zoom> with ${panelOptions.POV}`}
-          />
 
         </div>
 
 
-        <div id="promptOptions" className="basis-1/2 bg-gray-50 p-1 rounded-lg pr-64 pl-16 pt-2">
+        <div id="promptOptions" className="overflow-hidden overflow-y-scroll basis-1/2 bg-gray-50 px-14">
+
+          <label htmlFor="title" className="block text-xl font-bold text-gray-900 pt-6">Storyboard title:</label>
+          <p className="text-sm py-2">
+          Add a title to your storyboard panel to recognize your scene in the timeline.
+          </p>
+          <input
+            id="title"
+            type="text"
+            placeholder="Enter a title..."
+            onChange={(e) => changePanelState({ title: e.target.value })}
+            className="block p-2.5 w-full text-sm bg-gray-200 placeholder-black"
+          />
+        
+          <label htmlFor="title" className="block text-xl font-bold text-gray-900 pt-6">Comment:</label>
+          <p className="text-sm py-2">
+          Add a title to your storyboard panel to recognize your scene in the timeline.
+          </p>
+          <input
+            id="title"
+            type="text"
+            placeholder="Add an optional comment for storyboard panel..."
+            onChange={(e) => changePanelState({ comment: e.target.value })}
+            className="block p-2.5 w-full text-sm bg-gray-200 placeholder-black"
+          />
+         
 
           <label htmlFor="description" className="block text-xl font-bold text-gray-900 pt-6">Your scene:</label>
           <textarea
             id="description"
             rows={4}
-            className="block p-2.5 w-full text-sm placeholder-gray-600 text-gray-900 bg-gray-300 rounded-lg border border-gray-300 focus:ring-sky-500 focus:border-sky-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-800 dark:text-white dark:focus:ring-sky-500 dark:focus:border-sky-500"
+            className="block p-2.5 w-full text-sm bg-gray-200 placeholder-black"
             placeholder="Describe the scene you want to create..."
             onChange={(e) => changePanelState({ description: e.target.value })}
           />
@@ -204,38 +207,16 @@ const SceneBuilder: NextPageWithLayout = ({ }) => {
             stateVariable="POV"
             changeSelected={changePanelState}
           />
-
-          <label className="pt-6 block mb-2 text-xl font-bold text-gray-900 ">Generate panel:</label>
-          <button className='flex flex-col items-center justify-center rounded-3xl bg-sky-500 text-gray-50 h-10 w-40 border-2 mt-4' onClick={handleButtonClick}>Create scene</button>
-          {prediction && <pre>{JSON.stringify(prediction, null, 2)}</pre>}
-
+          
           {formattedData !== null && formattedData.output ? (
             <video controls>
               <source src={formattedData.output} type="video/mp4" />
             </video>
           ) : null}
         </div>
-
       </div>
-
-
-
-
-
-
     </div>
-
-  </BaseLayout>
-}
-
-SceneBuilder.getLayout = function (page: ReactElement) {
-
-  return (
-    <>
-      {page}
-    </>
   )
-
 }
 
 export default SceneBuilder
