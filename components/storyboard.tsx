@@ -15,8 +15,8 @@ interface StoryboardProps {
 
 const Storyboard: FC<StoryboardProps> = ({ panels, title }) => {
     return (
-    <div className="flex justify-center items-start h-screen py-16">
-        <div className="max-w-7xl rounded-lg bg-white drop-shadow-2xl p-8 mx-4 md:mx-8 lg:mx-12">
+    <div className="flex text-white justify-center items-start h-screen">
+        <div className=" rounded-lg bg-[#1e1e1e] drop-shadow-2xl p-8 ">
             <h1 className="text-4xl font-bold mb-10"> {title} </h1>
             <div className="grid grid-cols-4 gap-20">
                     {panels.map((panel, index) => (

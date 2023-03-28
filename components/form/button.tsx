@@ -6,9 +6,7 @@ export default function Button(props: any) {
     function defineButtonFunction() {
         console.log(props.Function)
         if (props.Function !== undefined) {
-
             return (props.Function)
-
         }
         else {
 

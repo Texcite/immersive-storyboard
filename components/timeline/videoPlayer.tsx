@@ -2,6 +2,7 @@ import {Dispatch, FC, useState, useEffect} from "react";
 import {PauseIcon, PlayIcon} from "@heroicons/react/20/solid";
 import { Panel } from "./panel";
 import dynamic from "next/dynamic"
+import {classNames} from "@/utils/classNames";
 const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
 
 interface VideoPlayerProps {
@@ -68,7 +69,9 @@ export const VideoPlayer:FC<VideoPlayerProps> = ({panels, setCurrent}) => {
                 <span className="font-light"> / {totalSeconds}</span>
             </p>
             <button
-                className="bg-[#23A6F0] text-white font-bold rounded-full  h-10 w-10  flex items-center justify-center "
+                className={classNames("transition-colors text-white font-bold rounded-full  h-10 w-10  flex items-center justify-center ",
+                    playing ?  "bg-red-800" : "bg-[#23A6F0]"
+                    )}
                 onClick={() => {
                     setPlaying(!playing)
                 }}
