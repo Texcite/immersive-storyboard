@@ -20,9 +20,10 @@ import VideoEditingTimeline from 'video-editing-timeline-react';
 
 interface StoryBoardTimelineProps {
     panels: Array<Panel>
+    current: number
 }
 
-export const StoryBoardTimeline: FC<StoryBoardTimelineProps> = ({ panels }) => {
+export const StoryBoardTimeline: FC<StoryBoardTimelineProps> = ({ panels, current }) => {
 
 
  const timeLineConfig = {
@@ -78,7 +79,7 @@ export const StoryBoardTimeline: FC<StoryBoardTimelineProps> = ({ panels }) => {
                         <div className="panels-wrapper w-full flex flex-row space-x-2 bg-black text-white p-4">
                             <div className=" overflow-hidden overflow-x-scroll space-x-3 flex">
                                 {
-                                    items.map((item,index) => <TimelinePanel key={index} panel={panels.find(p => p.id === item) ?? panels[index]}/>)
+                                    items.map((item,index) => <TimelinePanel key={index} current={current === index} panel={panels.find(p => p.id === item) ?? panels[index]}/>)
                                 }
                             </div>
                         </div>

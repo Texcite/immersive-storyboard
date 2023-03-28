@@ -10,6 +10,7 @@ import BuilderLayout from "@/layouts/BuilderLayout";
 
 const Timeline: NextPageWithLayout = ({}) => {
     // Create a panels array
+    const [current, setCurrent] = useState(0)
     const [panels, setPanels] = useState<Array<Panel>>([
         {
             id: "sd342ferg1231",
@@ -28,9 +29,9 @@ const Timeline: NextPageWithLayout = ({}) => {
     ])
     return (
         <section className="space-y-3 w-full">
-            <VideoPlayer panels={panels}/>
+            <VideoPlayer panels={panels} setCurrent={setCurrent}/>
             <h1 className="text-white font-bold text-xl">Timeline</h1>
-            <StoryBoardTimeline panels={panels}/>
+            <StoryBoardTimeline panels={panels} current={current}/>
         </section>
     )
 }
