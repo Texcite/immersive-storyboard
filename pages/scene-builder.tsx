@@ -5,7 +5,7 @@ import {useState} from "react";
 import Options from "@/components/form/options";
 import {Panel} from "@/components/timeline/panel";
 import {useGlobalContext} from "@/providers/GlobalContextProvider";
-import {LoadingScreen} from "@/pages/loading";
+import {LoadingScreen} from "@/components/loading";
 
 const SceneBuilder: NextPageWithLayout = ({}) => {
     const apiKey = process.env.NEXT_PUBLIC_APIKEY;
