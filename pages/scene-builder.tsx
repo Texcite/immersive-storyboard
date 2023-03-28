@@ -2,32 +2,31 @@ import { NextPageWithLayout } from "@/pages/_app";
 import BaseLayout from "@/layouts/base";
 import { ReactElement } from "react";
 import { useState } from "react";
-
 import Options from "@/components/form/options";
 
-
-const apiKey = process.env.NEXT_PUBLIC_APIKEY;
-const apiUrl = 'https://api.replicate.com/v1/predictions';
-
 const SceneBuilder: NextPageWithLayout = ({ }) => {
-
+  const apiKey = process.env.NEXT_PUBLIC_APIKEY;
+  const apiUrl = 'https://api.replicate.com/v1/predictions';
   const [formattedData, setFormattedData] = useState({ id: null, input: null, output: null, status: null });
-
+  const [inputValue, setInputValue] = useState("");
+  const [prediction, setPrediction] = useState(null);
   const [panelOptions, setPanelState] = useState({
-
     title: "",
     comment: "",
     description: "",
     style: "realistic",
     zoom: {
-      translation_x: 0,
-      translation_y: 0,
-      zoom: 1.04,
+      translation_x: "0",
+      translation_y: "0",
+      zoom: "1.04",
     },
     POV: "first person"
-
   });
 
+  /**
+   * Changes the state of Panel Object
+   * @param newObject
+   */
   function changePanelState(newObject: any) {
     var x
     var y
@@ -36,8 +35,7 @@ const SceneBuilder: NextPageWithLayout = ({ }) => {
       x = panelOptions.zoom.translation_x
       y = panelOptions.zoom.translation_y
       zoom = panelOptions.zoom.zoom
-    }
-    else {
+    } else {
       x = newObject.zoom.translation_x
       y = newObject.zoom.translation_y
       zoom = newObject.zoom.zoom
@@ -60,11 +58,17 @@ const SceneBuilder: NextPageWithLayout = ({ }) => {
 
   }
 
-
+  /**
+   * Creates new timeout
+   * @param delay
+   */
   function timeout(delay: number) {
     return new Promise(res => setTimeout(res, delay));
   }
 
+  /**
+   * Fetches new video result with prompt
+   */
   async function getPrediction() {
     const response = await fetch(apiUrl, {
       method: 'POST',
@@ -77,10 +81,10 @@ const SceneBuilder: NextPageWithLayout = ({ }) => {
         'version': 'e22e77495f2fb83c34d5fae2ad8ab63c0a87b6b573b6208e1535b23b89ea66d6',
         'input': {
           'max_frames': 100,
-          'animation_prompts': "0: " + panelOptions.description + ", in " + panelOptions.description + " style, from a" + panelOptions.POV /*+ "POV while performing a" + panelOptions.cameraZoom */,
-          'translation_y': panelOptions.zoom.translation_y,
-          'translation_x': panelOptions.zoom.translation_x,
-          'angle': 0,
+          'animation_prompts': "0: " + panelOptions.description + ", in a " + panelOptions.style + " art style, from a " + panelOptions.POV + " POV",
+          'translation_y': `0: (${panelOptions.zoom.translation_y})`,
+          'translation_x': `0: (${panelOptions.zoom.translation_x})`,
+          'angle': "0: (0)",
 
         }
       })
@@ -111,11 +115,12 @@ const SceneBuilder: NextPageWithLayout = ({ }) => {
 
   }
 
+  /**
+   * Redirect callback function
+   */
   function backHandler() {
     window.location.href = '/timeline';
   }
-
-  const [prediction, setPrediction] = useState(null);
 
   const handleButtonClick = async () => {
     try {
@@ -183,7 +188,6 @@ const SceneBuilder: NextPageWithLayout = ({ }) => {
             placeholder="Describe the scene you want to create..."
             onChange={(e) => changePanelState({ description: e.target.value })}
           />
-
           <label className="pt-6 block mb-2 text-xl font-bold text-gray-900">Style:</label>
           <p className="font-medium text-lg text-gray-900">Choose the art-style for your scene.</p>
           <Options
@@ -191,15 +195,14 @@ const SceneBuilder: NextPageWithLayout = ({ }) => {
             stateVariable="style"
             changeSelected={changePanelState}
           />
-
           <label className="pt-6 block mb-2 text-xl font-bold text-gray-900 ">Zoom:</label>
-          <p className="font-medium text-lg text-gray-900">Choose a direction the camera will zoom towards.</p>
+          <p className="font-medium text-lg text-gray-900">Choose a direction the camera will zoom
+            towards.</p>
           <Options
             availableOptions={cameraZoomList}
             stateVariable="camaraZoom"
             changeSelected={changePanelState}
           />
-
           <label className="pt-6 block mb-2 text-xl font-bold text-gray-900 ">POV:</label>
           <p className="font-medium text-lg text-gray-900">Choose a camera point of view for your</p>
           <Options
@@ -284,9 +287,9 @@ var cameraZoomList = {
       name: 'Top-Left-Zoom',
       value: 'Top-Left-Zoom',
       zoom: {
-        translation_x: 5,
-        translation_y: 5,
-        zoom: 1.04,
+        translation_x: "5",
+        translation_y: "5",
+        zoom: "1.04",
       },
       classes: baseSelectedClass,
     },
@@ -294,9 +297,9 @@ var cameraZoomList = {
       name: 'Top-Right-Zoom',
       value: 'Top-Right-Zoom',
       zoom: {
-        translation_x: -5,
-        translation_y: 5,
-        zoom: 1.04,
+        translation_x: "-5",
+        translation_y: "5",
+        zoom: "1.04",
       },
       classes: baseClasses,
     },
@@ -304,9 +307,9 @@ var cameraZoomList = {
       name: 'Bottom-Left-Zoom',
       value: 'Bottom-Left-Zoom',
       zoom: {
-        translation_x: 5,
-        translation_y: -5,
-        zoom: 1.04,
+        translation_x: "5",
+        translation_y: "-5",
+        zoom: "1.04",
       },
       classes: baseClasses,
     },
@@ -314,9 +317,9 @@ var cameraZoomList = {
       name: 'Bottom-Right-Zoom',
       value: 'Bottom-Right-Zoom',
       zoom: {
-        translation_x: -5,
-        translation_y: -5,
-        zoom: 1.04,
+        translation_x: "-5",
+        translation_y: "-5",
+        zoom: "1.04",
       },
       classes: baseClasses,
     },
@@ -324,9 +327,9 @@ var cameraZoomList = {
       name: 'Right-Zoom',
       value: 'Right-Zoom',
       zoom: {
-        translation_x: -5,
-        translation_y: 0,
-        zoom: 1.04,
+        translation_x: "-5",
+        translation_y: "0",
+        zoom: "1.04",
       },
       classes: baseClasses,
     },
@@ -334,9 +337,9 @@ var cameraZoomList = {
       name: 'Left-Zoom',
       value: 'Left-Zoom',
       zoom: {
-        translation_x: 5,
-        translation_y: 0,
-        zoom: 1.04,
+        translation_x: "5",
+        translation_y: "0",
+        zoom: "1.04",
       },
       classes: baseClasses,
     },
@@ -344,9 +347,9 @@ var cameraZoomList = {
       name: 'Top-Zoom',
       value: 'Top-Zoom',
       zoom: {
-        translation_x: 0,
-        translation_y: 5,
-        zoom: 1.04,
+        translation_x: "0",
+        translation_y: "5",
+        zoom: "1.04",
       },
       classes: baseClasses,
     },
@@ -354,9 +357,9 @@ var cameraZoomList = {
       name: 'Bottom-Zoom',
       value: 'Bottom-Zoom',
       zoom: {
-        translation_x: 0,
-        translation_y: -5,
-        zoom: 1.04,
+        translation_x: "0",
+        translation_y: "-5",
+        zoom: "1.04",
       },
       classes: baseClasses,
     },
@@ -364,9 +367,9 @@ var cameraZoomList = {
       name: 'Zoom-In',
       value: 'Zoom-In',
       zoom: {
-        translation_x: 0,
-        translation_y: 0,
-        zoom: 1.04,
+        translation_x: "0",
+        translation_y: "0",
+        zoom: "1.04",
       },
       classes: baseClasses,
     },
@@ -374,9 +377,9 @@ var cameraZoomList = {
       name: 'Zoom-Out',
       value: 'Zoom-Out',
       zoom: {
-        translation_x: 0,
-        translation_y: 0,
-        zoom: -1.04,
+        translation_x: "0",
+        translation_y: "0",
+        zoom: "-1.04",
       },
       classes: baseClasses,
     },
