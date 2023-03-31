@@ -1,5 +1,4 @@
 import React, {FC, PropsWithChildren, useEffect} from 'react';
-import {useDraggable} from '@dnd-kit/core';
 import Image from "next/image";
 import {classNames} from '@/utils/classNames';
 import {useSortable} from "@dnd-kit/sortable";
@@ -34,7 +33,7 @@ export const TimelinePanel: FC<TimelinePanelProps> = ({panel, current, children}
                  activeDragging ?
                      "transition-all" : "",
              )}>
-            <div className='panel-inner-wrapper overflow-hidden '>
+            <div className='panel-inner-wrapper overflow-hidden'>
                 <div
                     className={classNames("h-2/3 mx-4 overflow-hidden bg-main rounded-xl", activeDragging ? " border-yellow-300 border-2" : "",
                         current ? "border-2 border-[#23A6F0]" : "")}>

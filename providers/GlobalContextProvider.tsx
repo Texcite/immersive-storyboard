@@ -16,16 +16,30 @@ const GlobalAppProvider = ({children}: LayoutProps) => {
     const [panels, setPanels] = useState<Array<Panel>>([
         {
             id: "sd342ferg1231",
-            title: 'Nightmare',
-            thumbnail: '/panel-1-thumbnail.png',
-            video: 'https://replicate.delivery/mgxm/b2491cb9-5863-4b47-b0f0-40e9af1c2565/out.mp4',
+            title: 'Panel 1',
+            thumbnail: '/videos/out-1-thumb.png',
+            video: '/videos/out.mp4',
             comments: "Comments",
         },
         {
             id: "panelqq111",
-            title: 'Magic realm',
+            title: 'Panel 2',
+            thumbnail: '/videos/out-2-thumb.png',
+            video: '/videos/out-1.mp4',
+            comments: "de presentator introduceerd zijn gasten aan het publiek.",
+        },
+        {
+            id: "panelqq111212",
+            title: 'Panel 3',
             thumbnail: '/panel-2-thumbnail.png',
-            video: 'https://replicate.delivery/mgxm/08e3a2d5-4594-4934-a34a-6e249744ee52/out.mp4',
+            video: '/videos/out-3.mp4',
+            comments: "De presentator interviewt 1 van de gasten (militair uniform)",
+        },
+        {
+            id: "panelqq14411",
+            title: 'Panel 4',
+            thumbnail: '/panel-2-thumbnail.png',
+            video: '/videos/out-4.mp4',
             comments: "Comments",
         }
     ])
