@@ -1,0 +1,1 @@
+export const startTimeout = (seconds: number) => new Promise((res) => setTimeout(() => res("timeout"), seconds));

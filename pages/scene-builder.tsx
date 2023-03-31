@@ -1,21 +1,21 @@
-import {NextPageWithLayout} from "@/pages/_app";
+import { NextPageWithLayout } from "@/pages/_app";
 import BaseLayout from "@/layouts/base";
-import {Dispatch, FC, ReactElement} from "react";
-import {useState} from "react";
+import { Dispatch, FC, ReactElement } from "react";
+import { useState } from "react";
 import Options from "@/components/form/options";
-import {Panel} from "@/components/timeline/panel";
-import {useGlobalContext} from "@/providers/GlobalContextProvider";
-import {LoadingScreen} from "@/components/loading";
+import { Panel } from "@/components/timeline/panel";
+import { useGlobalContext } from "@/providers/GlobalContextProvider";
+import { LoadingScreen } from "@/components/loading";
+import { startTimeout } from "@/utils/timeout";
+import { log } from "console";
 
-const SceneBuilder: NextPageWithLayout = ({}) => {
+const SceneBuilder: NextPageWithLayout = ({ }) => {
     const apiKey = process.env.NEXT_PUBLIC_APIKEY;
     const apiUrl = 'https://api.replicate.com/v1/predictions';
-    const [formattedData, setFormattedData] = useState({id: null, input: null, output: null, status: null});
-    const [inputValue, setInputValue] = useState("");
-    const [prediction, setPrediction] = useState(null);
+    const [formattedData, setFormattedData] = useState({ id: null, input: null, output: null, status: null });
     const [loading, setLoading] = useState(false)
     // @ts-ignore
-    const {setPanels} = useGlobalContext()
+    const { setPanels } = useGlobalContext()
 
 
     /**
@@ -32,12 +32,12 @@ const SceneBuilder: NextPageWithLayout = ({}) => {
      * Scene builder page component
      * @constructor
      */
-    const SceneBuilderPage:FC<{setLoading: Dispatch<boolean>}> = ({setLoading}) => {
+    const SceneBuilderPage: FC<{ setLoading: Dispatch<boolean> }> = ({ setLoading }) => {
         /**
          * Fetches new video result with prompt
          */
         async function getPrediction() {
-            const response = await fetch(apiUrl, {
+            const panel = await fetch(apiUrl, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -49,45 +49,47 @@ const SceneBuilder: NextPageWithLayout = ({}) => {
                     'input': {
                         'max_frames': 100,
                         'animation_prompts': "0: " + panelOptions.description + ", in a " + panelOptions.style + " art style, from a " + panelOptions.POV + " POV",
-                        'translation_y': `0: (${panelOptions.zoom.translation_y})`,
-                        'translation_x': `0: (${panelOptions.zoom.translation_x})`,
+                        'translation_y': '0: (0)',
+                        'translation_x': '0: (0)',
                         'angle': "0: (0)",
+                        'zoom': '0: (1)',
 
                     }
                 })
-            });
-
-            const data = await response.json();
-
-            await timeout(330000);
-
-            const secondUrl = apiUrl + '/' + data.id;
-
-            const secondResponse = await fetch(secondUrl, {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Token ${apiKey}`,
-                    'Content-Type': 'application/json'
-                }
-            });
-
-            const complete = await secondResponse.json();
-
-            setFormattedData({
-                id: complete.id,
-                input: complete.input,
-                output: complete.output,
-                status: complete.status
-            });
-            const panel: Panel = {
-                id: complete.id,
-                thumbnail: complete.output,
-                video: complete.output,
-                title: panelOptions.title,
-                comments: panelOptions.comment
-            }
+            }).then((res) => res.json())
+                .then(async (data) => {
+                    await startTimeout(330000)
+                    return data
+                })
+                .then((data) => fetch(apiUrl + '/' + data.id, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Token ${apiKey}`,
+                        'Content-Type': 'application/json'
+                    }
+                }))
+                .then((res) => res.json())
+                .then((complete) => {
+                    setFormattedData({
+                        id: complete.id,
+                        input: complete.input,
+                        output: complete.output,
+                        status: complete.status
+                    })
+                    console.log(formattedData, complete)
+                    const panel: Panel = {
+                        id: complete.id,
+                        thumbnail: complete.output,
+                        video: complete.output,
+                        title: panelOptions.title,
+                        comments: panelOptions.comment
+                    }
+                    return panel
+                });
             return panel
         }
+
+
         /**
          * Redirect callback function
          */
@@ -99,7 +101,7 @@ const SceneBuilder: NextPageWithLayout = ({}) => {
             try {
                 setLoading(true)
                 const panel = await getPrediction();
-                setPanels((panels: Panel[]) => panels.push(panel))
+                //setPanels((panels: Panel[]) => panels.push(panel))
                 setLoading(false)
             } catch (error) {
                 console.error(error);
@@ -160,7 +162,7 @@ const SceneBuilder: NextPageWithLayout = ({}) => {
             <div className="flex flex-row h-full divide-x divide-solid">
 
                 <div id="promptscreen"
-                     className="overflow-hidden basis-1/2 bg-gray-100 px-14 h-full flex items-start flex-col justify-center space-y-6">
+                    className="overflow-hidden basis-1/2 bg-gray-100 px-14 h-full flex items-start flex-col justify-center space-y-6">
 
                     <label htmlFor="description" className="block text-5xl font-bold text-gray-900 pt-6">Result
                         prompt:</label>
@@ -168,7 +170,7 @@ const SceneBuilder: NextPageWithLayout = ({}) => {
 
                     <p className="text-4xl font-semibold leading-20">
                         I want to create a video of <span
-                        className="text-sky-500"> {panelOptions.description || "Please fill in the 'your scene' field"} </span>
+                            className="text-sky-500"> {panelOptions.description || "Please fill in the 'your scene' field"} </span>
                         in the style of <span className="text-sky-500"> {panelOptions.style} </span>.
                         The camera will have a <span className="text-sky-500"> {panelOptions.POV} </span> perspective.
                     </p>
@@ -193,7 +195,7 @@ const SceneBuilder: NextPageWithLayout = ({}) => {
                         id="title"
                         type="text"
                         placeholder="Enter a title..."
-                        onChange={(e) => changePanelState({title: e.target.value})}
+                        onChange={(e) => changePanelState({ title: e.target.value })}
                         className="block p-2.5 w-full text-sm bg-gray-200 placeholder-black"
                     />
 
@@ -205,7 +207,7 @@ const SceneBuilder: NextPageWithLayout = ({}) => {
                         id="title"
                         type="text"
                         placeholder="Add an optional comment for storyboard panel..."
-                        onChange={(e) => changePanelState({comment: e.target.value})}
+                        onChange={(e) => changePanelState({ comment: e.target.value })}
                         className="block p-2.5 w-full text-sm bg-gray-200 placeholder-black"
                     />
 
@@ -217,21 +219,13 @@ const SceneBuilder: NextPageWithLayout = ({}) => {
                         rows={4}
                         className="block p-2.5 w-full text-sm bg-gray-200 placeholder-black"
                         placeholder="Describe the scene you want to create..."
-                        onChange={(e) => changePanelState({description: e.target.value})}
+                        onChange={(e) => changePanelState({ description: e.target.value })}
                     />
                     <label className="pt-6 block mb-2 text-xl font-bold text-gray-900">Style:</label>
                     <p className="font-medium text-lg text-gray-900">Choose the art-style for your scene.</p>
                     <Options
                         availableOptions={styleList}
                         stateVariable="style"
-                        changeSelected={changePanelState}
-                    />
-                    <label className="pt-6 block mb-2 text-xl font-bold text-gray-900 ">Zoom:</label>
-                    <p className="font-medium text-lg text-gray-900">Choose a direction the camera will zoom
-                        towards.</p>
-                    <Options
-                        availableOptions={cameraZoomList}
-                        stateVariable="camaraZoom"
                         changeSelected={changePanelState}
                     />
                     <label className="pt-6 block mb-2 text-xl font-bold text-gray-900 ">POV:</label>
@@ -244,7 +238,7 @@ const SceneBuilder: NextPageWithLayout = ({}) => {
 
                     {formattedData !== null && formattedData.output ? (
                         <video controls>
-                            <source src={formattedData.output} type="video/mp4"/>
+                            <source src={formattedData.output} type="video/mp4" />
                         </video>
                     ) : null}
                 </div>
@@ -255,7 +249,7 @@ const SceneBuilder: NextPageWithLayout = ({}) => {
      * Conditional returning the loading page or scene builder page
      */
     return (
-        loading ? <LoadingScreen/> : <SceneBuilderPage setLoading={setLoading}/>
+        loading ? <LoadingScreen /> : <SceneBuilderPage setLoading={setLoading} />
     )
 }
 
@@ -311,113 +305,6 @@ var styleList = {
         {
             name: 'B&W Film',
             value: 'B&W Film',
-            classes: baseClasses,
-        },
-    ]
-}
-
-var cameraZoomList = {
-
-    options: [
-
-        {
-            name: 'Top-Left-Zoom',
-            value: 'Top-Left-Zoom',
-            zoom: {
-                translation_x: "5",
-                translation_y: "5",
-                zoom: "1.04",
-            },
-            classes: baseSelectedClass,
-        },
-        {
-            name: 'Top-Right-Zoom',
-            value: 'Top-Right-Zoom',
-            zoom: {
-                translation_x: "-5",
-                translation_y: "5",
-                zoom: "1.04",
-            },
-            classes: baseClasses,
-        },
-        {
-            name: 'Bottom-Left-Zoom',
-            value: 'Bottom-Left-Zoom',
-            zoom: {
-                translation_x: "5",
-                translation_y: "-5",
-                zoom: "1.04",
-            },
-            classes: baseClasses,
-        },
-        {
-            name: 'Bottom-Right-Zoom',
-            value: 'Bottom-Right-Zoom',
-            zoom: {
-                translation_x: "-5",
-                translation_y: "-5",
-                zoom: "1.04",
-            },
-            classes: baseClasses,
-        },
-        {
-            name: 'Right-Zoom',
-            value: 'Right-Zoom',
-            zoom: {
-                translation_x: "-5",
-                translation_y: "0",
-                zoom: "1.04",
-            },
-            classes: baseClasses,
-        },
-        {
-            name: 'Left-Zoom',
-            value: 'Left-Zoom',
-            zoom: {
-                translation_x: "5",
-                translation_y: "0",
-                zoom: "1.04",
-            },
-            classes: baseClasses,
-        },
-        {
-            name: 'Top-Zoom',
-            value: 'Top-Zoom',
-            zoom: {
-                translation_x: "0",
-                translation_y: "5",
-                zoom: "1.04",
-            },
-            classes: baseClasses,
-        },
-        {
-            name: 'Bottom-Zoom',
-            value: 'Bottom-Zoom',
-            zoom: {
-                translation_x: "0",
-                translation_y: "-5",
-                zoom: "1.04",
-            },
-            classes: baseClasses,
-        },
-        {
-            name: 'Zoom-In',
-            value: 'Zoom-In',
-            zoom: {
-                translation_x: "0",
-                translation_y: "0",
-                zoom: "1.04",
-            },
-            classes: baseClasses,
-        },
-        {
-            name: 'Zoom-Out',
-            value: 'Zoom-Out',
-            zoom: {
-                translation_x: "0",
-                translation_y: "0",
-                zoom: "-1.04",
-            },
             classes: baseClasses,
         },
     ]

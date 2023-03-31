@@ -1,4 +1,4 @@
-import {CircleStackIcon} from '@heroicons/react/24/outline'
+import {ArrowPathIcon} from '@heroicons/react/24/outline'
 
 
 export const LoadingScreen = () => {
@@ -7,7 +7,7 @@ export const LoadingScreen = () => {
         <h2 className="text-8xl font-semibold">Loading</h2>
         <p className="text-lg">Generating video based on your input</p>
         <p className="text-sm">This could take up to <span className="font-semibold">8 minutes</span>...</p>
-        <CircleStackIcon className="animate-spin w-16 h-16"/>
+        <ArrowPathIcon className="animate-spin w-16 h-16"/>
     </section>
     )
 }
