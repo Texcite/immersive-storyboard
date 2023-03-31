@@ -15,17 +15,19 @@ const Dashboard: NextPageWithLayout = () => {
 
     const Step: FC<StepProps> = ({number, image, title, description}) => {
         return (
-            <div className="w-1/3 space-y-4 px-2 py-2">
-                <Image
-                    src={image}
-                    className="rounded-xl shadow-2xl"
-                    width={500}
-                    height={400}
-                    alt="iamge"
-                />
+            <div className="w-1/3 space-y-4 px-6 py-2">
+                <div className="overflow-hidden rounded-xl shadow-2xl aspect-video h-2/3">
+                    <Image
+                        src={image}
+                        className=""
+                        height={800}
+                        width={800}
+                        alt="image"
+                    />
+                </div>
                 <div className="space-y-2">
                     <h2 className="text-xl font-bold">{number}. {title}</h2>
-                    <p className="font-regular text-lg">
+                    <p className="font-light text-sm">
                         {description.substring(0, 200)}
                     </p>
                 </div>
@@ -34,8 +36,14 @@ const Dashboard: NextPageWithLayout = () => {
     }
 
     return (
-        <div className='px-2'>
-            <h2 className="font-bold text-3xl">Stappenplan</h2>
+        <div className='px-2 bg-[#1e1e1e] text-white'>
+            <div className="flex flex-row justify-between items-center py-4 px-8 w-full">
+                <h2 className="font-bold text-3xl">Stappenplan</h2>
+                <button
+                    className="rounded-full p-3 px-6 font-semibold bg-brandAccent text-white hover:bg-brandAccent">
+                    Get started
+                </button>
+            </div>
             <section className="flex flex-wrap px-6 py-6">
                 <Step
                     number={1}
@@ -59,14 +67,15 @@ const Dashboard: NextPageWithLayout = () => {
                     number={4}
                     image={"https://app.kaiber.ai/images/02b0800c597be6f2ce1ceda1ab3aa29b-HIW-1.png"}
                     title={"Genereren (laadscherm)"}
-                    description={"Start with your own image or audio to bring existing content to life."}
+                    description={"Beschrijf je situatie en druk op de knop 'genereer' om het process te starten."}
                 />
                 <Step
                     number={5}
                     image={"https://app.kaiber.ai/images/02b0800c597be6f2ce1ceda1ab3aa29b-HIW-1.png"}
                     title={"Herorder je panelen voor de juiste volgorde"}
                     description={"Start with your own image or audio to bring existing content to life."}
-                />  <Step
+                />
+                <Step
                     number={6}
                     image={"https://app.kaiber.ai/images/02b0800c597be6f2ce1ceda1ab3aa29b-HIW-1.png"}
                     title={"Exporteer je immersive storyboard"}

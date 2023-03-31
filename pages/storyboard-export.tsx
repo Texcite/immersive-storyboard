@@ -83,10 +83,9 @@ const StoryboardExport: NextPageWithLayout = ({}) => {
                         <p className="text-sm py-2">This is the preview of your storyboard. When you have pressed the
                             download button you can open the index.html file to see the storyboard.</p>
                     </div>
-                    <button className="rounded-full p-3 px-6 bg-brandAccent text-white hover:bg-brandAccent"
-                            onClick={exportPage}
-
-                    >
+                    <button
+                        className="rounded-full p-3 px-6 bg-brandAccent text-white hover:bg-brandAccent"
+                        onClick={exportPage}>
                         Download
                     </button>
                 </div>
