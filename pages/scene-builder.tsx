@@ -101,7 +101,7 @@ const SceneBuilder: NextPageWithLayout = ({ }) => {
             try {
                 setLoading(true)
                 const panel = await getPrediction();
-                //setPanels((panels: Panel[]) => panels.push(panel))
+                setPanels((panels: Panel[]) => panels.push(panel))
                 setLoading(false)
             } catch (error) {
                 console.error(error);
