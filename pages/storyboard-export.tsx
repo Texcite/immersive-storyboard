@@ -6,7 +6,7 @@ import Link from "next/link";
 const StoryboardExport: NextPageWithLayout = ({}) => {
 
     // @ts-ignore
-    const {panels} = useGlobalContext()
+    const {panels, title} = useGlobalContext()
     // const panels = [
     //     {
     //         title: 'Panel 1',
@@ -52,7 +52,6 @@ const StoryboardExport: NextPageWithLayout = ({}) => {
     //     },
     // ]
 
-    const title = "Komt een man bij de dokter"
 
     function exportPage() {
         var html = document.documentElement.outerHTML;

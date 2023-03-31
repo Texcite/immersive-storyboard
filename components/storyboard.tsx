@@ -24,7 +24,7 @@ const Storyboard: FC<StoryboardProps> = ({ panels, title }) => {
                         <span className="absolute top-0 left-0 m-2 text-white bg-brandAccent rounded-full w-6 h-6 flex items-center justify-center">
                             {index + 1}
                         </span>
-                        <video className="rounded" src={panel.video} autoPlay loop/>
+                        <video className="rounded" src={panel.video} autoPlay={true} playsInline={true} muted={true} loop={true}/>
                         <p className="mt-2">{panel.comments}</p>
                     </div>
                     ))}        

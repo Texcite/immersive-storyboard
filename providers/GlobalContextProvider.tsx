@@ -11,7 +11,7 @@ const GlobalAppProvider = ({children}: LayoutProps) => {
 
 
     // Global states
-    const [title, setTitle] = React.useState<string>('dashboard');
+    const [title, setTitle] = React.useState<string>('Militaire interview storyboard');
     let [openSceneBuilder, setOpenSceneBuilder] = useState(false)
     const [panels, setPanels] = useState<Array<Panel>>([
         {
@@ -19,28 +19,28 @@ const GlobalAppProvider = ({children}: LayoutProps) => {
             title: 'Panel 1',
             thumbnail: '/videos/out-1-thumb.png',
             video: '/videos/out.mp4',
-            comments: "Comments",
+            comments: "Presentator geeft de intro van de show. Er staat een grote tafel met een aantal gasten.",
         },
         {
             id: "panelqq111",
             title: 'Panel 2',
             thumbnail: '/videos/out-2-thumb.png',
             video: '/videos/out-1.mp4',
-            comments: "de presentator introduceerd zijn gasten aan het publiek.",
+            comments: "De presentator introduceerd zijn gasten aan het publiek.",
         },
         {
             id: "panelqq111212",
             title: 'Panel 3',
-            thumbnail: '/panel-2-thumbnail.png',
+            thumbnail: '/videos/out-3-thumb.png',
             video: '/videos/out-3.mp4',
             comments: "De presentator interviewt 1 van de gasten (militair uniform)",
         },
         {
             id: "panelqq14411",
             title: 'Panel 4',
-            thumbnail: '/panel-2-thumbnail.png',
+            thumbnail: '/videos/out-4-thumb.png',
             video: '/videos/out-4.mp4',
-            comments: "Comments",
+            comments: "De presentator sluit zijn show af en bedankt de gasten.",
         }
     ])
 
