@@ -14,6 +14,12 @@ const nextConfig = {
         hostname: 'ple1.nigelritfeld.nl',
         port: '',
         pathname: '/**'
+      },
+      {
+        protocol: 'https',
+        hostname: 'app.kaiber.ai',
+        port: '',
+        pathname: '/**'
       }
     ]
   }
@@ -21,3 +27,4 @@ const nextConfig = {
 }
 
 module.exports = nextConfig
+// (https://app.kaiber.ai/

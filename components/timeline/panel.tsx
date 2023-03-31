@@ -36,7 +36,7 @@ export const TimelinePanel: FC<TimelinePanelProps> = ({panel, current, children}
              )}>
             <div className='panel-inner-wrapper overflow-hidden '>
                 <div
-                    className={classNames("h-2/3 overflow-hidden bg-main rounded-xl", activeDragging ? " border-yellow-300 border-2" : "",
+                    className={classNames("h-2/3 mx-4 overflow-hidden bg-main rounded-xl", activeDragging ? " border-yellow-300 border-2" : "",
                         current ? "border-2 border-[#23A6F0]" : "")}>
                     <Image
                         className="rounded-lg"
@@ -44,7 +44,7 @@ export const TimelinePanel: FC<TimelinePanelProps> = ({panel, current, children}
                         draggable="false"
                         alt={panel.title + " thumbnail"}
                         width={255}
-                        height={500}
+                        height={355}
                     />
                 </div>
                 <div className="h-1/3 flex items-center justify-center">

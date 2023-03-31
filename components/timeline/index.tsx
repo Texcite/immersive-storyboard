@@ -84,8 +84,8 @@ export const StoryBoardTimeline: FC<StoryBoardTimelineProps> = ({panels, current
                                 <VideoEditingTimeline config={timeLineConfig}/>
                             }
                         </div>
-                        <div className="panels-wrapper w-full flex flex-row space-x-2 bg-black text-white p-4">
-                            <div className=" overflow-hidden overflow-x-scroll space-x-3 flex">
+                        <div className="panels-wrapper w-full flex flex-row space-x-2 bg-black text-white p-4 pb-0">
+                            <div className=" overflow-hidden overflow-x-scroll  flex h-2/3">
                                 {
                                     items.map((item, index) => <TimelinePanel key={index} current={current === index}
                                                                               panel={panels.find(p => p.id === item) ?? panels[index]}/>)
